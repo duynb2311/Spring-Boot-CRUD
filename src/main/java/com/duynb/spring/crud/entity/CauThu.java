@@ -25,6 +25,7 @@ public class CauThu {
     private String cauLacBo;
     @Column(name = "quoc_tich")
     private String quocTich;
+    @Temporal(TemporalType.DATE)
     @Column(name = "thoi_han_hop_dong")
     private Date thoiHanHopDong;
     @Column(name = "luong")
