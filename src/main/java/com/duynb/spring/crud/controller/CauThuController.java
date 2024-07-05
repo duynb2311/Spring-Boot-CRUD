@@ -5,20 +5,16 @@ import com.duynb.spring.crud.dto.ResponseStructure;
 import com.duynb.spring.crud.entity.CauThu;
 import com.duynb.spring.crud.service.CauThuService;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/cau-thu")
 public class CauThuController {
-    private CauThuService cauThuService;
+    private final CauThuService cauThuService;
 
+    //Tung
     public CauThuController(CauThuService cauThuService) {
         this.cauThuService = cauThuService;
     }
@@ -34,5 +30,25 @@ public class CauThuController {
     @PostMapping("/add")
     public  ResponseStructure<String> addCauThu(@RequestBody CauThu cauThu){
         return cauThuService.addCauThu(cauThu);
+    }
+
+    //Duy
+    @GetMapping("/{id}")
+    public ResponseStructure<CauThu> getCauThuById(@PathVariable Long id){
+        return cauThuService.getCauThuById(id);
+    }
+
+    @GetMapping()
+    public ResponseStructure<List<CauThu>> getCauThuByCauLacBo(
+            @RequestParam(value = "club", defaultValue = "") String club,
+            @RequestParam(value = "page", defaultValue = "1") Integer page,
+            @RequestParam(value = "size", defaultValue = "10") Integer size
+    ){
+        return cauThuService.getCauThuByCauLacBo(club, page, size);
+    }
+
+    @PutMapping
+    public ResponseStructure<CauThu> updateCauThu(@RequestBody CauThu cauThu){
+        return cauThuService.updateCauThu(cauThu);
     }
 }

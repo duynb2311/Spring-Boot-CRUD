@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Data
 public class CauThu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +29,78 @@ public class CauThu {
     private Date thoiHanHopDong;
     @Column(name = "luong")
     private BigDecimal luong;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getHoTen() {
+        return hoTen;
+    }
+
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
+    }
+
+    public Date getNamSinh() {
+        return namSinh;
+    }
+
+    public void setNamSinh(Date namSinh) {
+        this.namSinh = namSinh;
+    }
+
+    public String getViTri() {
+        return viTri;
+    }
+
+    public void setViTri(String viTri) {
+        this.viTri = viTri;
+    }
+
+    public Integer getSoAo() {
+        return soAo;
+    }
+
+    public void setSoAo(Integer soAo) {
+        this.soAo = soAo;
+    }
+
+    public String getCauLacBo() {
+        return cauLacBo;
+    }
+
+    public void setCauLacBo(String cauLacBo) {
+        this.cauLacBo = cauLacBo;
+    }
+
+    public String getQuocTich() {
+        return quocTich;
+    }
+
+    public void setQuocTich(String quocTich) {
+        this.quocTich = quocTich;
+    }
+
+    public Date getThoiHanHopDong() {
+        return thoiHanHopDong;
+    }
+
+    public void setThoiHanHopDong(Date thoiHanHopDong) {
+        this.thoiHanHopDong = thoiHanHopDong;
+    }
+
+    public BigDecimal getLuong() {
+        return luong;
+    }
+
+    public void setLuong(BigDecimal luong) {
+        this.luong = luong;
+    }
 
     public CauThu() {
     }
