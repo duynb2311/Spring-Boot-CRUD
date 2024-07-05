@@ -43,10 +43,10 @@ public class CauThuService {
         if (cauThuNew.getNamSinh() == null) {
             check = true;
         }
-        if (cauThuNew.getViTri() == null) {
+        if (cauThuNew.getViTri() == null||cauThuNew.getViTri().isEmpty()) {
             check = true;
         }
-        if (cauThuNew.getSoAo() == null) {
+        if (cauThuNew.getSoAo() == null||cauThuNew.getSoAo()<0) {
             check = true;
         }
         if (cauThuNew.getCauLacBo() == null || cauThuNew.getCauLacBo().isEmpty()) {
@@ -67,8 +67,6 @@ public class CauThuService {
             // Lưu cầu thủ mới vào cơ sở dữ liệu
             cauThuRepository.save(cauThuNew);
             return new ResponseStructure<>(HttpStatus.OK.value(), MainConstants.MESSANGER_SUCCESS, MainConstants.DATA_MESSAGER);
-
-
     }
     public ResponseStructure<String> deleteCauThu(Long id){
         CauThu cauThu = cauThuRepository.findCauThuById(id);
