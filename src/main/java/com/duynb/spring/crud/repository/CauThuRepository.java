@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
+// Lớp ánh xạ các truy vấn tới cơ sở dữ liệu
 public interface CauThuRepository extends JpaRepository<CauThu,Long> {
     //Tung
     @Query(MainConstants.FIND_CAU_THU_BY_ID)

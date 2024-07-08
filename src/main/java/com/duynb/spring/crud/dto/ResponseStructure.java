@@ -3,6 +3,7 @@ package com.duynb.spring.crud.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+// Lớp cấu hình respone từ api
 public class ResponseStructure <T> {
     private int statusCode;
     private String message;

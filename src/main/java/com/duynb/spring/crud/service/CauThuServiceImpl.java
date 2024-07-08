@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
+// Lớp làm rõ các phương thức xử lý request
 public class CauThuServiceImpl implements CauThuService {
     public final CauThuRepository cauThuRepository;
 
@@ -98,6 +99,8 @@ public class CauThuServiceImpl implements CauThuService {
     }
 
     //Duy -- Tim kiem cau thu theo cau lac bo
+    // input -- tên câu lạc bộ, thứ tự page và độ dài page
+    // output -- page cầu thủ đc yêu cầu
     @Override
     public ResponseStructure<List<CauThu>> getCauThuByCauLacBo(String club, Integer page, Integer size){
         List<CauThu> cauThus = cauThuRepository.findByClub(club, page, size);
@@ -105,7 +108,7 @@ public class CauThuServiceImpl implements CauThuService {
         return response;
     }
 
-    //Duy -- Cap nhat toan phan thong tin cau thu
+    // Duy -- phương thức cập nhật thông tin cầu thủ với đầu vào là đối tượng CauThu với thông tin mới
     @Override
     public ResponseStructure<CauThu> updateCauThu(CauThu cauThu){
         CauThu currentCauThu = cauThuRepository.getById(cauThu.getId());

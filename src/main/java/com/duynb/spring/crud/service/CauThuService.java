@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
+// interface cho các service của CauThu
 public interface CauThuService {
     ResponseStructure<CauThu> deleteCauThu(Long id);
     ResponseStructure<Page<CauThu>> getAllCauThu(Integer page, Integer size);

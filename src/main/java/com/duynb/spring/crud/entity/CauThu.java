@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
+// Lớp ánh xạ đối tượng CauThu sang bảng cau_thu trên mysql
 public class CauThu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,10 +33,6 @@ public class CauThu {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getHoTen() {
