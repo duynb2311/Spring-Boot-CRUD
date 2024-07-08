@@ -4,10 +4,16 @@ import com.duynb.spring.crud.constant.MainConstants;
 import com.duynb.spring.crud.dto.ResponseStructure;
 import com.duynb.spring.crud.entity.CauThu;
 import com.duynb.spring.crud.service.CauThuService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.BindException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/cau-thu")
@@ -33,8 +39,8 @@ public class CauThuController {
     }
     @PostMapping("/add")
     // Tùng -- phương thức thêm cầu thủ với đầu vào là đối tượng CauThu
-    public  ResponseStructure<CauThu> addCauThu(@RequestBody CauThu cauThu){
-        return cauThuService.addCauThu(cauThu);
+    public  ResponseStructure<CauThu> addCauThu(@RequestBody CauThu cauThu ){
+            return cauThuService.addCauThu(cauThu);
     }
 
     //Duy -- phương thức lấy thông tin chi tiết cầu thủ với đầu vào là id cầu thủ

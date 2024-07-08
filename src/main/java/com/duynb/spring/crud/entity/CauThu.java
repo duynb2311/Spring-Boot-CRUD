@@ -1,5 +1,7 @@
 package com.duynb.spring.crud.entity;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -13,21 +15,30 @@ public class CauThu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull(message = "hoTen is not null")
     @Column(name = "ho_ten")
     private String hoTen;
+    @NotNull(message = "namSinh is not null")
+    @Temporal(TemporalType.DATE)
     @Column(name = "nam_sinh")
     private Date namSinh;
+    @NotNull(message = "viTri is not null")
     @Column(name = "vi_tri")
     private String viTri;
+    @NotNull(message = "soAo is not null")
     @Column(name = "so_ao")
     private Integer soAo;
+    @NotNull(message = "cauLacBo is not null")
     @Column(name = "cau_lac_bo")
     private String cauLacBo;
+    @NotNull(message = "quocTich is not null")
     @Column(name = "quoc_tich")
     private String quocTich;
+    @NotNull(message = "thoiHanHopDong is not null")
     @Temporal(TemporalType.DATE)
     @Column(name = "thoi_han_hop_dong")
     private Date thoiHanHopDong;
+    @NotNull(message = "luon is not null")
     @Column(name = "luong")
     private BigDecimal luong;
 

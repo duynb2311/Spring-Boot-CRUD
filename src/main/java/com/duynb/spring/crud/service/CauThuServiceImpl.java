@@ -4,13 +4,17 @@ import com.duynb.spring.crud.constant.MainConstants;
 import com.duynb.spring.crud.dto.ResponseStructure;
 import com.duynb.spring.crud.entity.CauThu;
 import com.duynb.spring.crud.repository.CauThuRepository;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 // Lớp làm rõ các phương thức xử lý request
@@ -21,13 +25,20 @@ public class CauThuServiceImpl implements CauThuService {
         this.cauThuRepository = cauThuRepository;
     }
 
-    //Tung
+    //Tùng
+    //hiển thị danh sách cầu thủ
+    //đầu vào số trang (page) và kích thước trang (size)
+    //đầu ra danh sách cầu thủ theo số trang và kích thước trang
     @Override
     public ResponseStructure<Page<CauThu>> getAllCauThu(Integer page,Integer size){
         Page<CauThu> cauThuPage = cauThuRepository.findAll(PageRequest.of(page,size));
         ResponseStructure<Page<CauThu>> response = new ResponseStructure<>(HttpStatus.OK.value(), MainConstants.MESSANGER_SUCCESS,cauThuPage);
         return response;
     }
+    //Tùng
+    // Thêm cầu thủ mới vào danh sách
+    // đầu vào là thông tín đối tượng cauThu mới
+    // đầu ra trả về danh sách cauThu mới
     @Override
     public ResponseStructure<CauThu> addCauThu(CauThu cauThuNew){
         List<CauThu> cauThuList = cauThuRepository.findAll();
@@ -38,39 +49,15 @@ public class CauThuServiceImpl implements CauThuService {
                 return  new ResponseStructure<>(HttpStatus.BAD_REQUEST.value(),MainConstants.ADD_ERROR_DUPLICATE,null);
             }
         }
-
-        // Kiểm tra các trường thông tin của cầu thủ mới
-        boolean check = false;
-        if (cauThuNew.getHoTen() == null || cauThuNew.getHoTen().isEmpty()) {
-            check = true;
-        }
-        if (cauThuNew.getNamSinh() == null) {
-            check = true;
-        }
-        if (cauThuNew.getViTri() == null||cauThuNew.getViTri().isEmpty()) {
-            check = true;
-        }
-        if (cauThuNew.getSoAo() == null||cauThuNew.getSoAo()<0) {
-            check = true;
-        }
-        if (cauThuNew.getCauLacBo() == null || cauThuNew.getCauLacBo().isEmpty()) {
-            check = true;
-        }
-        if (cauThuNew.getQuocTich() == null || cauThuNew.getQuocTich().isEmpty()) {
-            check = true;
-        }
-        if (cauThuNew.getThoiHanHopDong() == null) {
-            check = true;
-        }
-        if (cauThuNew.getLuong() == null || cauThuNew.getLuong().compareTo(BigDecimal.ZERO) < 0) {
-            check = true;
-        }
-        if (check) {
-            return new ResponseStructure<>(HttpStatus.BAD_REQUEST.value(),MainConstants.ADD_ERROR_NULLPOINTER,null);
-        }
+            // Kiểm tra các trường thông tin của cầu thủ mới
+        try {
             // Lưu cầu thủ mới vào cơ sở dữ liệu
             cauThuRepository.save(cauThuNew);
-            return new ResponseStructure<>(HttpStatus.OK.value(), MainConstants.DATA_MESSAGER,cauThuNew);
+            return new ResponseStructure<>(HttpStatus.OK.value(), MainConstants.DATA_MESSAGER, cauThuNew);
+        }catch (NullPointerException nullPointerException){
+            nullPointerException.printStackTrace();
+            return new ResponseStructure<>(HttpStatus.BAD_REQUEST.value(), MainConstants.ADD_ERROR_NULLPOINTER, null);
+        }
     }
     @Override
     public ResponseStructure<CauThu> deleteCauThu(Long id){
