@@ -1,0 +1,5 @@
+app:
+  exception:
+    cau_thu: Cau thu must not be Null
+  response:
+    get_by_id_success: Success

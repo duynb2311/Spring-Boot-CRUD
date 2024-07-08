@@ -3,18 +3,15 @@ package com.duynb.spring.crud.service;
 import com.duynb.spring.crud.constant.MainConstants;
 import com.duynb.spring.crud.dto.ResponseStructure;
 import com.duynb.spring.crud.entity.CauThu;
+import com.duynb.spring.crud.exception.NullValueInputException;
 import com.duynb.spring.crud.repository.CauThuRepository;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Service
 // Lớp làm rõ các phương thức xử lý request
@@ -98,6 +95,9 @@ public class CauThuServiceImpl implements CauThuService {
     // Duy -- phương thức cập nhật thông tin cầu thủ với đầu vào là đối tượng CauThu với thông tin mới
     @Override
     public ResponseStructure<CauThu> updateCauThu(CauThu cauThu){
+        if(Objects.isNull(cauThu)){
+            throw new NullValueInputException(MainConstants.UPDATE_CAU_THU_WITH_NULL_VALUE_MESSAGE);
+        }
         CauThu currentCauThu = cauThuRepository.getById(cauThu.getId());
         if(currentCauThu!= null){
             CauThu updatedCauthu = cauThuRepository.save(cauThu);
