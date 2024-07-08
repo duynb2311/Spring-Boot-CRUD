@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.BindException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -39,7 +40,7 @@ public class CauThuController {
     }
     @PostMapping("/add")
     // Tùng -- phương thức thêm cầu thủ với đầu vào là đối tượng CauThu
-    public  ResponseStructure<CauThu> addCauThu(@RequestBody CauThu cauThu ){
+    public  ResponseStructure<CauThu> addCauThu(@RequestBody CauThu cauThu){
             return cauThuService.addCauThu(cauThu);
     }
 

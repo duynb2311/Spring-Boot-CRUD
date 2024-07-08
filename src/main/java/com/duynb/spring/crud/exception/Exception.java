@@ -1,6 +1,9 @@
 package com.duynb.spring.crud.exception;
 
+import com.duynb.spring.crud.constant.MainConstants;
+import com.duynb.spring.crud.dto.ResponseStructure;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 public class Exception {
     private final String message;
@@ -16,7 +19,6 @@ public class Exception {
     public String getMessage() {
         return message;
     }
-
     public Throwable getThrowable() {
         return throwable;
     }

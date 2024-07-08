@@ -23,6 +23,7 @@ public class CauThu {
     @Column(name = "nam_sinh")
     private Date namSinh;
     @NotNull(message = "viTri is not null")
+    @NotBlank(message = "viTri is not null")
     @Column(name = "vi_tri")
     private String viTri;
     @NotNull(message = "soAo is not null")
@@ -38,7 +39,7 @@ public class CauThu {
     @Temporal(TemporalType.DATE)
     @Column(name = "thoi_han_hop_dong")
     private Date thoiHanHopDong;
-    @NotNull(message = "luon is not null")
+    @NotNull(message = "luong is not null")
     @Column(name = "luong")
     private BigDecimal luong;
 

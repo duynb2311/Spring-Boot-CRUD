@@ -46,15 +46,32 @@ public class CauThuServiceImpl implements CauThuService {
                 return  new ResponseStructure<>(HttpStatus.BAD_REQUEST.value(),MainConstants.ADD_ERROR_DUPLICATE,null);
             }
         }
-            // Kiểm tra các trường thông tin của cầu thủ mới
-        try {
-            // Lưu cầu thủ mới vào cơ sở dữ liệu
+        if(Objects.isNull(cauThuNew.getSoAo())||cauThuNew.getSoAo()<0){
+            throw new NullPointerException("số áo không hợp lệ");
+        }
+        if(cauThuNew.getHoTen().isEmpty()||Objects.isNull(cauThuNew.getHoTen())){
+            throw new NullPointerException("họ tên không được null");
+        }
+        if (Objects.isNull(cauThuNew.getNamSinh())){
+            throw new NullPointerException("năm sinh không được null");
+        }
+        if(cauThuNew.getViTri().isEmpty()||Objects.isNull(cauThuNew.getViTri())){
+            throw new NullPointerException("vị trí không được nulll");
+        }
+        if(cauThuNew.getCauLacBo().isEmpty()||Objects.isNull(cauThuNew.getCauLacBo())){
+            throw new NullPointerException("câu lạc bộ không được null");
+        }
+        if(cauThuNew.getQuocTich().isEmpty()||Objects.isNull(cauThuNew.getQuocTich())){
+            throw new NullPointerException("quốc tịch không được null");
+        }
+        if(Objects.isNull(cauThuNew.getThoiHanHopDong())){
+            throw new NullPointerException("thời hạn hợp đồng không được null");
+        }
+        if(Objects.isNull(cauThuNew.getLuong())){
+            throw new NullPointerException("lương không hợp lệ");
+        }
             cauThuRepository.save(cauThuNew);
             return new ResponseStructure<>(HttpStatus.OK.value(), MainConstants.DATA_MESSAGER, cauThuNew);
-        }catch (NullPointerException nullPointerException){
-            nullPointerException.printStackTrace();
-            return new ResponseStructure<>(HttpStatus.BAD_REQUEST.value(), MainConstants.ADD_ERROR_NULLPOINTER, null);
-        }
     }
     @Override
     public ResponseStructure<CauThu> deleteCauThu(Long id){
