@@ -7,9 +7,9 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface CauThuService {
-    ResponseStructure<String> deleteCauThu(Long id);
+    ResponseStructure<CauThu> deleteCauThu(Long id);
     ResponseStructure<Page<CauThu>> getAllCauThu(Integer page, Integer size);
-    ResponseStructure<String> addCauThu(CauThu cauThuNew);
+    ResponseStructure<CauThu> addCauThu(CauThu cauThuNew);
     ResponseStructure<CauThu> getCauThuById(Long id);
 
     ResponseStructure<List<CauThu>> getCauThuByCauLacBo(String club, Integer page, Integer size);

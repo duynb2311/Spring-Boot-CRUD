@@ -24,11 +24,11 @@ public class CauThuController {
         return cauThuService.getAllCauThu(page,size);
     }
     @DeleteMapping("/delete/{id}")
-    public ResponseStructure<String> deleteCauThu(@PathVariable Long id){
+    public ResponseStructure<CauThu> deleteCauThu(@PathVariable Long id){
         return cauThuService.deleteCauThu(id);
     }
     @PostMapping("/add")
-    public  ResponseStructure<String> addCauThu(@RequestBody CauThu cauThu){
+    public  ResponseStructure<CauThu> addCauThu(@RequestBody CauThu cauThu){
         return cauThuService.addCauThu(cauThu);
     }
 

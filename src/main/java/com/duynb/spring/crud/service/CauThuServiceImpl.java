@@ -28,13 +28,13 @@ public class CauThuServiceImpl implements CauThuService {
         return response;
     }
     @Override
-    public ResponseStructure<String> addCauThu(CauThu cauThuNew){
+    public ResponseStructure<CauThu> addCauThu(CauThu cauThuNew){
         List<CauThu> cauThuList = cauThuRepository.findAll();
 
         // Kiểm tra nếu cầu thủ mới có thông tin trùng lặp với bất kỳ cầu thủ nào đã tồn tại
         for (CauThu cauThu : cauThuList) {
             if (cauThu.getId().equals(cauThuNew.getId())) {
-                return new ResponseStructure<>(HttpStatus.BAD_REQUEST.value(), MainConstants.ERROR, MainConstants.ADD_ERROR_DUPLICATE);
+                return  new ResponseStructure<>(HttpStatus.BAD_REQUEST.value(),MainConstants.ADD_ERROR_DUPLICATE,null);
             }
         }
 
@@ -65,21 +65,21 @@ public class CauThuServiceImpl implements CauThuService {
             check = true;
         }
         if (check) {
-            return new ResponseStructure<>(HttpStatus.BAD_REQUEST.value(), MainConstants.ERROR, MainConstants.ADD_ERROR_NULLPOINTER);
+            return new ResponseStructure<>(HttpStatus.BAD_REQUEST.value(),MainConstants.ADD_ERROR_NULLPOINTER,null);
         }
             // Lưu cầu thủ mới vào cơ sở dữ liệu
             cauThuRepository.save(cauThuNew);
-            return new ResponseStructure<>(HttpStatus.OK.value(), MainConstants.MESSANGER_SUCCESS, MainConstants.DATA_MESSAGER);
+            return new ResponseStructure<>(HttpStatus.OK.value(), MainConstants.DATA_MESSAGER,cauThuNew);
     }
     @Override
-    public ResponseStructure<String> deleteCauThu(Long id){
+    public ResponseStructure<CauThu> deleteCauThu(Long id){
         CauThu cauThu = cauThuRepository.findCauThuById(id);
         if(cauThu != null && cauThu.getId() != null) {
             cauThuRepository.xoaCauThuProc(id);
-            ResponseStructure<String> response = new ResponseStructure<>(HttpStatus.OK.value(), MainConstants.MESSANGER_SUCCESS,MainConstants.DATA_MESSAGER);
+            ResponseStructure<CauThu> response = new ResponseStructure<>(HttpStatus.OK.value(),MainConstants.DATA_MESSAGER,cauThu);
             return response;
         }else {
-            ResponseStructure<String> response = new ResponseStructure<>(HttpStatus.NOT_FOUND.value(), MainConstants.ERROR,MainConstants.DELETE_ERROR_NOT_FOUND);
+            ResponseStructure<CauThu> response = new ResponseStructure<>(HttpStatus.NOT_FOUND.value(), MainConstants.DELETE_ERROR_NOT_FOUND,null);
             return response;
         }
     }
