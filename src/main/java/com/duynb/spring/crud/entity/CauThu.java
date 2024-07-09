@@ -1,5 +1,7 @@
 package com.duynb.spring.crud.entity;
 
+import com.duynb.spring.crud.constant.MainConstants;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,36 +12,36 @@ import java.util.Date;
 
 @Entity
 // Lớp ánh xạ đối tượng CauThu sang bảng cau_thu trên mysql
+@Table(name = MainConstants.ENTITY_TABLE_NAME)
 public class CauThu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull(message = "hoTen is not null")
-    @Column(name = "ho_ten")
+    @NotNull(message = MainConstants.ENTITY_COLUMN_NULLPOINTER_HOTEN)
+    @Column(name = MainConstants.ENTITY_COLUMN_HOTEN)
     private String hoTen;
-    @NotNull(message = "namSinh is not null")
+    @NotNull(message = MainConstants.ENTITY_COLUMN_NULLPOINTER_NAMSINH)
     @Temporal(TemporalType.DATE)
-    @Column(name = "nam_sinh")
+    @Column(name = MainConstants.ENTITY_COLUMN_NAMSINH)
     private Date namSinh;
-    @NotNull(message = "viTri is not null")
-    @NotBlank(message = "viTri is not null")
-    @Column(name = "vi_tri")
+    @NotNull(message = MainConstants.ENTITY_COLUMN_NULLPOINTER_VITRI)
+    @Column(name = MainConstants.ENTITY_COLUMN_VITRI)
     private String viTri;
-    @NotNull(message = "soAo is not null")
-    @Column(name = "so_ao")
+    @NotNull(message = MainConstants.ENTITY_COLUMN_NULLPOINTER_SOAO)
+    @Column(name = MainConstants.ENTITY_COLUMN_SOAO)
     private Integer soAo;
-    @NotNull(message = "cauLacBo is not null")
-    @Column(name = "cau_lac_bo")
+    @NotNull(message = MainConstants.ENTITY_COLUMN_NULLPOINTER_CAULACBO)
+    @Column(name = MainConstants.ENTITY_COLUMN_CAULACBO)
     private String cauLacBo;
-    @NotNull(message = "quocTich is not null")
-    @Column(name = "quoc_tich")
+    @NotNull(message = MainConstants.ENTITY_COLUMN_NULLPOINTER_QUOCTICH)
+    @Column(name = MainConstants.ENTITY_COLUMN_QUOCTICH)
     private String quocTich;
-    @NotNull(message = "thoiHanHopDong is not null")
+    @NotNull(message = MainConstants.ENTITY_COLUMN_NULLPOINTER_THOIHANHOPDONG)
     @Temporal(TemporalType.DATE)
-    @Column(name = "thoi_han_hop_dong")
+    @Column(name = MainConstants.ENTITY_COLUMN_THOIHANHOPDONG)
     private Date thoiHanHopDong;
-    @NotNull(message = "luong is not null")
-    @Column(name = "luong")
+    @NotNull(message = MainConstants.ENTITY_COLUMN_NULLPOINTER_LUONG)
+    @Column(name = MainConstants.ENTITY_COLUMN_LUONG)
     private BigDecimal luong;
 
     public Long getId() {

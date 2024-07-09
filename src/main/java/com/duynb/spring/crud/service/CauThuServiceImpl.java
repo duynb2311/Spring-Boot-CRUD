@@ -39,6 +39,10 @@ public class CauThuServiceImpl implements CauThuService {
     @Override
     public ResponseStructure<CauThu> addCauThu(CauThu cauThuNew){
         List<CauThu> cauThuList = cauThuRepository.findAll();
+        // kiểm tra dữ liệu input nhập vào
+        if(Objects.isNull(cauThuNew)){
+            throw new NullValueInputException(MainConstants.CREATE_CAU_THU_WITH_NULL_VALUE_MESSAGE);
+        }
 
         // Kiểm tra nếu cầu thủ mới có thông tin trùng lặp với bất kỳ cầu thủ nào đã tồn tại
         for (CauThu cauThu : cauThuList) {
@@ -46,37 +50,14 @@ public class CauThuServiceImpl implements CauThuService {
                 return  new ResponseStructure<>(HttpStatus.BAD_REQUEST.value(),MainConstants.ADD_ERROR_DUPLICATE,null);
             }
         }
-        if(Objects.isNull(cauThuNew.getSoAo())||cauThuNew.getSoAo()<0){
-            throw new NullPointerException("số áo không hợp lệ");
-        }
-        if(cauThuNew.getHoTen().isEmpty()||Objects.isNull(cauThuNew.getHoTen())){
-            throw new NullPointerException("họ tên không được null");
-        }
-        if (Objects.isNull(cauThuNew.getNamSinh())){
-            throw new NullPointerException("năm sinh không được null");
-        }
-        if(cauThuNew.getViTri().isEmpty()||Objects.isNull(cauThuNew.getViTri())){
-            throw new NullPointerException("vị trí không được nulll");
-        }
-        if(cauThuNew.getCauLacBo().isEmpty()||Objects.isNull(cauThuNew.getCauLacBo())){
-            throw new NullPointerException("câu lạc bộ không được null");
-        }
-        if(cauThuNew.getQuocTich().isEmpty()||Objects.isNull(cauThuNew.getQuocTich())){
-            throw new NullPointerException("quốc tịch không được null");
-        }
-        if(Objects.isNull(cauThuNew.getThoiHanHopDong())){
-            throw new NullPointerException("thời hạn hợp đồng không được null");
-        }
-        if(Objects.isNull(cauThuNew.getLuong())){
-            throw new NullPointerException("lương không hợp lệ");
-        }
             cauThuRepository.save(cauThuNew);
             return new ResponseStructure<>(HttpStatus.OK.value(), MainConstants.DATA_MESSAGER, cauThuNew);
+
     }
     @Override
     public ResponseStructure<CauThu> deleteCauThu(Long id){
         CauThu cauThu = cauThuRepository.findCauThuById(id);
-        if(cauThu != null && cauThu.getId() != null) {
+        if(Objects.isNull(cauThu) && Objects.isNull(cauThu.getId())) {
             cauThuRepository.xoaCauThuProc(id);
             ResponseStructure<CauThu> response = new ResponseStructure<>(HttpStatus.OK.value(),MainConstants.DATA_MESSAGER,cauThu);
             return response;
@@ -90,7 +71,7 @@ public class CauThuServiceImpl implements CauThuService {
     @Override
     public ResponseStructure<CauThu> getCauThuById(Long id){
         CauThu cauThu = cauThuRepository.getById(id);
-        if(cauThu!= null){
+        if(!Objects.isNull(cauThu)){
             ResponseStructure<CauThu> response = new ResponseStructure<>(HttpStatus.OK.value(), MainConstants.GET_BY_ID_SUCCESS_MESSAGE,cauThu );
             return response;
         }else{
@@ -116,7 +97,7 @@ public class CauThuServiceImpl implements CauThuService {
             throw new NullValueInputException(MainConstants.UPDATE_CAU_THU_WITH_NULL_VALUE_MESSAGE);
         }
         CauThu currentCauThu = cauThuRepository.getById(cauThu.getId());
-        if(currentCauThu!= null){
+        if(!Objects.isNull(currentCauThu)){
             CauThu updatedCauthu = cauThuRepository.save(cauThu);
             ResponseStructure<CauThu> response = new ResponseStructure<>(HttpStatus.OK.value(), MainConstants.GET_BY_ID_SUCCESS_MESSAGE,updatedCauthu );
             return response;
