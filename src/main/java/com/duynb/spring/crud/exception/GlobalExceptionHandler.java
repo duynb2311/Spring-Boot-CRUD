@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
 
     // Xử lý các ngoại lệ khác (nếu cần)
     @ExceptionHandler(NullValueInputException.class)
-    public ResponseEntity<String> handleAllExceptions(Exception ex) {
+    public ResponseEntity<String> handleNullValueInputExceptions(NullValueInputException ex) {
         LOGGER.error(ex.getMessage(), ex);
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
