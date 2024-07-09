@@ -1,10 +1,13 @@
 package com.duynb.spring.crud.dto;
 
+import com.duynb.spring.crud.constant.MainConstants;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 // Lớp cấu hình respone từ api
 public class ResponseStructure <T> {
+    @ApiModelProperty(notes = MainConstants.STATUS_CODE_API_MODEL_NOTES, example =MainConstants.STATUS_CODE_API_MODEL_EXAMPLE )
     private int statusCode;
     private String message;
     private T data;

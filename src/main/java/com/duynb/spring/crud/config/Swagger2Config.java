@@ -30,7 +30,7 @@ public class Swagger2Config {
                 .build();
     }
 
-    // Cấu hình các trường thông tin hiển thị trên trang swagger
+    // Cấu hình các trường thông tin mô tả hiển thị trên trang swagger
     private ApiInfo apiEndPointsInfo() {
         return new ApiInfo(
                 ConfigConstants.APIINFO_TITLE,

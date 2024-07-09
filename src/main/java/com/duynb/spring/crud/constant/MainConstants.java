@@ -27,6 +27,13 @@ public class MainConstants {
 //    public static String getMessageUpdateCauThuWithNullValue;
     public static final String UPDATE_CAU_THU_WITH_NULL_VALUE_MESSAGE="cauThu must not be Null";
     public static final String CREATE_CAU_THU_WITH_NULL_VALUE_MESSAGE="cauThu must not be Null";
+    public static final String STATUS_CODE_API_MODEL_NOTES ="Giá trị của mã HttpStatus";
+    public static final String STATUS_CODE_API_MODEL_EXAMPLE ="200";
+    public static final String CAU_THU_CONTROLLER_API_VALUE = "Quản lý danh sách cầu thủ";
+    public static final String CAU_THU_CONTROLLER_API_DESCRIPTION = "Các Api phục vụ crud liên quan tới cầu thủ và danh sách cầu thủ";
+    public static final String GET_CAU_THU_BY_ID_API_OPERATION_VALUE= "Lấy thông tin chi tiết cầu thủ bằng id";
+    public static final String GET_CAU_THU_BY_ID_API_PARAM_VALUE= "Id của cầu thủ muốn lấy thông tin";
+    public static final String GET_CAU_THU_BY_ID_API_PARAM_EXAMPLE= "1";
 
 //    Entity constant
     public static final String ENTITY_TABLE_NAME = "cau_thu";

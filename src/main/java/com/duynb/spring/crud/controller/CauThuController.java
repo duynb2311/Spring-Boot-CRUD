@@ -4,6 +4,7 @@ import com.duynb.spring.crud.constant.MainConstants;
 import com.duynb.spring.crud.dto.ResponseStructure;
 import com.duynb.spring.crud.entity.CauThu;
 import com.duynb.spring.crud.service.CauThuService;
+import io.swagger.annotations.*;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Api(value = MainConstants.CAU_THU_CONTROLLER_API_VALUE, description = MainConstants.CAU_THU_CONTROLLER_API_DESCRIPTION)
 @RestController
 @RequestMapping("/api/v1/cau-thu")
 // Lớp controller tạo các api crud cho bảng cầu thủ
@@ -30,24 +32,36 @@ public class CauThuController {
     // Tùng -- phương thức lấy toàn bộ danh sách cầu thủ
     // input: thứ tự page và độ dài page
     // output: trang danh sách cầu thủ yêu cầu
-    public ResponseStructure<Page<CauThu>> showAll(@RequestParam(defaultValue = MainConstants.FIRST_PAGE) Integer page,
-                                                   @RequestParam(defaultValue = MainConstants.SIZE_PAGE) Integer size){
-        return cauThuService.getAllCauThu(page,size);
+    public ResponseEntity<ResponseStructure<Page<CauThu>>> showAll(
+            @RequestParam(defaultValue = MainConstants.FIRST_PAGE) Integer page,
+            @RequestParam(defaultValue = MainConstants.SIZE_PAGE) Integer size
+    ){
+        ResponseStructure<Page<CauThu>> responseStructure =  cauThuService.getAllCauThu(page,size);
+        return new ResponseEntity<>(responseStructure,HttpStatus.valueOf(responseStructure.getStatusCode()));
     }
     @DeleteMapping("/delete/{id}")
     // Tùng -- phương thức xóa cầu thủ với đầu vào id và đầu ra là kết quả xóa
-    public ResponseStructure<CauThu> deleteCauThu(@PathVariable Long id){
-        return cauThuService.deleteCauThu(id);
-    }
+    public ResponseEntity<ResponseStructure<CauThu>> deleteCauThu(@PathVariable Long id){
+        ResponseStructure<CauThu> responseStructure = cauThuService.deleteCauThu(id);
+        return new ResponseEntity<>(responseStructure,HttpStatus.valueOf(responseStructure.getStatusCode()));
+     }
     @PostMapping("/add")
     // Tùng -- phương thức thêm cầu thủ với đầu vào là đối tượng CauThu
-    public  ResponseStructure<CauThu> addCauThu(@RequestBody CauThu cauThu){
-            return cauThuService.addCauThu(cauThu);
+    public ResponseEntity<ResponseStructure<CauThu>> addCauThu(@RequestBody CauThu cauThu ){
+        ResponseStructure<CauThu> responseStructure = cauThuService.addCauThu(cauThu);
+        return new ResponseEntity<>(responseStructure, HttpStatus.valueOf(responseStructure.getStatusCode()));
     }
 
     //Duy -- phương thức lấy thông tin chi tiết cầu thủ với đầu vào là id cầu thủ
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = MainConstants.GET_BY_ID_SUCCESS_MESSAGE),
+            @ApiResponse(code = 404, message = MainConstants.GET_BY_ID_NOT_FOUND_MESSAGE)
+    })
+    @ApiOperation(value = MainConstants.GET_CAU_THU_BY_ID_API_OPERATION_VALUE)
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseStructure<CauThu>> getCauThuById(@PathVariable Long id){
+    public ResponseEntity<ResponseStructure<CauThu>> getCauThuById(
+            @ApiParam(value = MainConstants.GET_CAU_THU_BY_ID_API_PARAM_VALUE, example = MainConstants.GET_CAU_THU_BY_ID_API_PARAM_EXAMPLE) @PathVariable Long id
+    ){
         ResponseStructure<CauThu> responseStructure= cauThuService.getCauThuById(id);
         return new ResponseEntity<>(responseStructure, HttpStatus.valueOf(responseStructure.getStatusCode()));
     }
