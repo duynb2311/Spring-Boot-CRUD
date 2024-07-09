@@ -15,6 +15,7 @@ public class MainConstants {
     public static  final String FIND_CAU_THU_BY_ID = "select ct from CauThu ct where ct.id = ?1";
     public static final String FIRST_PAGE = "0";
     public static final String SIZE_PAGE = "5";
+    public static final String DELETE_CAU_THU_PROCEDURE = "xoa_cau_thu";
 
     //Duy
 //    @Value("${app.response.get-by-id-success}")

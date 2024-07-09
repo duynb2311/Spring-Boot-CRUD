@@ -1,12 +1,11 @@
-package com.duynb.spring.crud.dto;
+package com.duynb.spring.crud.dto.response;
 
 import com.duynb.spring.crud.constant.MainConstants;
+import com.duynb.spring.crud.dto.ICauThuManagerDto;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 // Lớp cấu hình respone từ api
-public class ResponseStructure <T> {
+public class ResponseWithObjectDto<T extends ICauThuManagerDto> {
     @ApiModelProperty(notes = MainConstants.STATUS_CODE_API_MODEL_NOTES, example =MainConstants.STATUS_CODE_API_MODEL_EXAMPLE )
     private int statusCode;
     private String message;
@@ -36,10 +35,10 @@ public class ResponseStructure <T> {
         this.data = data;
     }
 
-    public ResponseStructure() {
+    public ResponseWithObjectDto() {
     }
 
-    public ResponseStructure(int statusCode, String message, T data) {
+    public ResponseWithObjectDto(int statusCode, String message, T data) {
         this.statusCode = statusCode;
         this.message = message;
         this.data = data;

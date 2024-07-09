@@ -1,22 +1,18 @@
 package com.duynb.spring.crud.controller;
 
 import com.duynb.spring.crud.constant.MainConstants;
-import com.duynb.spring.crud.dto.ResponseStructure;
+import com.duynb.spring.crud.dto.response.ResponseWithCollectionDto;
+import com.duynb.spring.crud.dto.response.ResponseWithObjectDto;
+import com.duynb.spring.crud.dto.response.ResponseWithPageDto;
 import com.duynb.spring.crud.entity.CauThu;
 import com.duynb.spring.crud.service.CauThuService;
 import io.swagger.annotations.*;
-import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.BindException;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Api(value = MainConstants.CAU_THU_CONTROLLER_API_VALUE, description = MainConstants.CAU_THU_CONTROLLER_API_DESCRIPTION)
 @RestController
@@ -32,57 +28,57 @@ public class CauThuController {
     // Tùng -- phương thức lấy toàn bộ danh sách cầu thủ
     // input: thứ tự page và độ dài page
     // output: trang danh sách cầu thủ yêu cầu
-    public ResponseEntity<ResponseStructure<Page<CauThu>>> showAll(
+    public ResponseEntity<ResponseWithPageDto<Page<CauThu>>> showAll(
             @RequestParam(defaultValue = MainConstants.FIRST_PAGE) Integer page,
             @RequestParam(defaultValue = MainConstants.SIZE_PAGE) Integer size
     ){
-        ResponseStructure<Page<CauThu>> responseStructure =  cauThuService.getAllCauThu(page,size);
-        return new ResponseEntity<>(responseStructure,HttpStatus.valueOf(responseStructure.getStatusCode()));
+        ResponseWithPageDto<Page<CauThu>> response =  cauThuService.getAllCauThu(page,size);
+        return new ResponseEntity<>(response,HttpStatus.valueOf(response.getStatusCode()));
     }
     @DeleteMapping("/delete/{id}")
     // Tùng -- phương thức xóa cầu thủ với đầu vào id và đầu ra là kết quả xóa
-    public ResponseEntity<ResponseStructure<CauThu>> deleteCauThu(@PathVariable Long id){
-        ResponseStructure<CauThu> responseStructure = cauThuService.deleteCauThu(id);
-        return new ResponseEntity<>(responseStructure,HttpStatus.valueOf(responseStructure.getStatusCode()));
+    public ResponseEntity<ResponseWithObjectDto<CauThu>> deleteCauThu(@PathVariable Long id){
+        ResponseWithObjectDto<CauThu> response = cauThuService.deleteCauThu(id);
+        return new ResponseEntity<>(response,HttpStatus.valueOf(response.getStatusCode()));
      }
     @PostMapping("/add")
     // Tùng -- phương thức thêm cầu thủ với đầu vào là đối tượng CauThu
-    public ResponseEntity<ResponseStructure<CauThu>> addCauThu(@RequestBody CauThu cauThu ){
-        ResponseStructure<CauThu> responseStructure = cauThuService.addCauThu(cauThu);
-        return new ResponseEntity<>(responseStructure, HttpStatus.valueOf(responseStructure.getStatusCode()));
+    public ResponseEntity<ResponseWithObjectDto<CauThu>> addCauThu(@RequestBody CauThu cauThu ){
+        ResponseWithObjectDto<CauThu> response = cauThuService.addCauThu(cauThu);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatusCode()));
     }
 
     //Duy -- phương thức lấy thông tin chi tiết cầu thủ với đầu vào là id cầu thủ
+    @ApiModelProperty(value = MainConstants.GET_CAU_THU_BY_ID_API_OPERATION_VALUE)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = MainConstants.GET_BY_ID_SUCCESS_MESSAGE),
             @ApiResponse(code = 404, message = MainConstants.GET_BY_ID_NOT_FOUND_MESSAGE)
     })
-    @ApiOperation(value = MainConstants.GET_CAU_THU_BY_ID_API_OPERATION_VALUE)
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseStructure<CauThu>> getCauThuById(
+    public ResponseEntity<ResponseWithObjectDto<CauThu>> getCauThuById(
             @ApiParam(value = MainConstants.GET_CAU_THU_BY_ID_API_PARAM_VALUE, example = MainConstants.GET_CAU_THU_BY_ID_API_PARAM_EXAMPLE) @PathVariable Long id
     ){
-        ResponseStructure<CauThu> responseStructure= cauThuService.getCauThuById(id);
-        return new ResponseEntity<>(responseStructure, HttpStatus.valueOf(responseStructure.getStatusCode()));
+        ResponseWithObjectDto<CauThu> response= cauThuService.getCauThuById(id);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatusCode()));
     }
 
     // Duy -- phương thức tìm danh sách cầu thủ chung câu lạc bộ
     // input -- tên câu lạc bộ, thứ tự page và độ dài page
     // output -- page cầu thủ đc yêu cầu
     @GetMapping()
-    public ResponseEntity<ResponseStructure<List<CauThu>>> getCauThuByCauLacBo(
+    public ResponseEntity<ResponseWithCollectionDto<List<CauThu>>> getCauThuByCauLacBo(
             @RequestParam(value = "club", defaultValue = "") String club,
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "size", defaultValue = "10") Integer size
     ){
-        ResponseStructure<List<CauThu>> responseStructure =cauThuService.getCauThuByCauLacBo(club, page, size);
-        return new ResponseEntity<>(responseStructure, HttpStatus.valueOf(responseStructure.getStatusCode()));
+        ResponseWithCollectionDto<List<CauThu>> response =cauThuService.getCauThuByCauLacBo(club, page, size);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatusCode()));
     }
 
     // Duy -- phương thức cập nhật thông tin cầu thủ với đầu vào là đối tượng CauThu với thông tin mới
     @PutMapping
-    public ResponseEntity<ResponseStructure<CauThu>> updateCauThu(@RequestBody CauThu cauThu){
-        ResponseStructure<CauThu> responseStructure= cauThuService.updateCauThu(cauThu);
-        return new ResponseEntity<>(responseStructure,HttpStatus.valueOf(responseStructure.getStatusCode()));
+    public ResponseEntity<ResponseWithObjectDto<CauThu>> updateCauThu(@RequestBody CauThu cauThu){
+        ResponseWithObjectDto<CauThu> response= cauThuService.updateCauThu(cauThu);
+        return new ResponseEntity<>(response,HttpStatus.valueOf(response.getStatusCode()));
     }
 }

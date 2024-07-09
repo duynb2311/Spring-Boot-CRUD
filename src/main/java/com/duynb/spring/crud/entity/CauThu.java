@@ -1,6 +1,7 @@
 package com.duynb.spring.crud.entity;
 
 import com.duynb.spring.crud.constant.MainConstants;
+import com.duynb.spring.crud.dto.ICauThuManagerDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Entity
 // Lớp ánh xạ đối tượng CauThu sang bảng cau_thu trên mysql
 @Table(name = MainConstants.ENTITY_TABLE_NAME)
-public class CauThu {
+public class CauThu extends ICauThuManagerDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
