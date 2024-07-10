@@ -15,7 +15,9 @@ public class MainConstants {
     public static  final String FIND_CAU_THU_BY_ID = "select ct from CauThu ct where ct.id = ?1";
     public static final String FIRST_PAGE = "0";
     public static final String SIZE_PAGE = "5";
+    public static final String FIRST_PAGE_GET_CAU_THU_By_CAU_LAC_BO = "1";
     public static final String DELETE_CAU_THU_PROCEDURE = "xoa_cau_thu";
+    public static final String CLUB_NULL = "";
 
     //Duy
 //    @Value("${app.response.get-by-id-success}")
@@ -35,6 +37,10 @@ public class MainConstants {
     public static final String GET_CAU_THU_BY_ID_API_OPERATION_VALUE= "Lấy thông tin chi tiết cầu thủ bằng id";
     public static final String GET_CAU_THU_BY_ID_API_PARAM_VALUE= "Id của cầu thủ muốn lấy thông tin";
     public static final String GET_CAU_THU_BY_ID_API_PARAM_EXAMPLE= "1";
+    public static final String CREATE_CAU_THU_API_OPERATION_VALUE = "thêm mới thông tin một cầu thủ";
+    public static final String CREATE_SUCCESS_MESSAGE = "success";
+    public static final String CREATE_NO_CONTENT_MESSAGE = "không có dữ liệu nào trả về";
+    public static final String CREATE_BAD_REQUEST_MESSAGE = "dữ liệu không hợp lệ";
 
 //    Entity constant
     public static final String ENTITY_TABLE_NAME = "cau_thu";

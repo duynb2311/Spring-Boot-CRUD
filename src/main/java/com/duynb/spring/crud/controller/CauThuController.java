@@ -7,6 +7,7 @@ import com.duynb.spring.crud.dto.response.ResponseWithPageDto;
 import com.duynb.spring.crud.entity.CauThu;
 import com.duynb.spring.crud.service.CauThuService;
 import io.swagger.annotations.*;
+import org.jboss.jandex.Main;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +25,10 @@ public class CauThuController {
     public CauThuController(CauThuService cauThuService) {
         this.cauThuService = cauThuService;
     }
-    @GetMapping("/all")
     // Tùng -- phương thức lấy toàn bộ danh sách cầu thủ
     // input: thứ tự page và độ dài page
     // output: trang danh sách cầu thủ yêu cầu
+    @GetMapping("/all")
     public ResponseEntity<ResponseWithPageDto<Page<CauThu>>> showAll(
             @RequestParam(defaultValue = MainConstants.FIRST_PAGE) Integer page,
             @RequestParam(defaultValue = MainConstants.SIZE_PAGE) Integer size
@@ -41,8 +42,14 @@ public class CauThuController {
         ResponseWithObjectDto<CauThu> response = cauThuService.deleteCauThu(id);
         return new ResponseEntity<>(response,HttpStatus.valueOf(response.getStatusCode()));
      }
-    @PostMapping("/add")
     // Tùng -- phương thức thêm cầu thủ với đầu vào là đối tượng CauThu
+    @ApiModelProperty(value = MainConstants.CREATE_CAU_THU_API_OPERATION_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200,message = MainConstants.CREATE_SUCCESS_MESSAGE),
+            @ApiResponse(code = 204,message = MainConstants.CREATE_NO_CONTENT_MESSAGE),
+            @ApiResponse(code = 400,message = MainConstants.CREATE_BAD_REQUEST_MESSAGE)
+    })
+    @PostMapping("/add")
     public ResponseEntity<ResponseWithObjectDto<CauThu>> addCauThu(@RequestBody CauThu cauThu ){
         ResponseWithObjectDto<CauThu> response = cauThuService.addCauThu(cauThu);
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatusCode()));
@@ -67,9 +74,9 @@ public class CauThuController {
     // output -- page cầu thủ đc yêu cầu
     @GetMapping()
     public ResponseEntity<ResponseWithCollectionDto<List<CauThu>>> getCauThuByCauLacBo(
-            @RequestParam(value = "club", defaultValue = "") String club,
-            @RequestParam(value = "page", defaultValue = "1") Integer page,
-            @RequestParam(value = "size", defaultValue = "10") Integer size
+            @RequestParam(value = "club", defaultValue = MainConstants.CLUB_NULL) String club,
+            @RequestParam(value = "page", defaultValue = MainConstants.FIRST_PAGE_GET_CAU_THU_By_CAU_LAC_BO) Integer page,
+            @RequestParam(value = "size", defaultValue = MainConstants.SIZE_PAGE) Integer size
     ){
         ResponseWithCollectionDto<List<CauThu>> response =cauThuService.getCauThuByCauLacBo(club, page, size);
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatusCode()));
