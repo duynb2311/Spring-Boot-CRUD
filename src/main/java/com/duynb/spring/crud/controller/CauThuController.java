@@ -55,7 +55,7 @@ public class CauThuController {
     // Tùng -- phương thức thêm cầu thủ với đầu vào là đối tượng CauThu
     @ApiOperation(value = MainConstants.CREATE_CAU_THU_API_OPERATION_VALUE)
     @ApiResponses(value = {
-            @ApiResponse(code = 200,message = MainConstants.CREATE_SUCCESS_MESSAGE),
+            @ApiResponse(code = 201,message = MainConstants.CREATE_SUCCESS_MESSAGE),
             @ApiResponse(code = 400,message = MainConstants.CREATE_BAD_REQUEST_MESSAGE)
     })
     @PostMapping("/add")

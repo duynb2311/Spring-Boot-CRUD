@@ -52,7 +52,7 @@ public class CauThuServiceImpl implements CauThuService {
             }
         }
             cauThuRepository.save(cauThuNew);
-            return new ResponseWithObjectDto<>(HttpStatus.OK.value(), MainConstants.DATA_MESSAGER, cauThuNew);
+            return new ResponseWithObjectDto<>(HttpStatus.CREATED.value(),  MainConstants.DATA_MESSAGER, cauThuNew);
 
     }
     @Override
