@@ -30,8 +30,7 @@ public class CauThuController {
     // output: trang danh sách cầu thủ yêu cầu
     @ApiOperation(value = MainConstants.GET_ALL_CAU_THU_API_OPERATION_VALUE)
     @ApiResponses(value = {
-            @ApiResponse(code = 200,message = MainConstants.GET_ALL_CAU_THU_SUCCESS_MESSAGE),
-            @ApiResponse(code = 404,message = MainConstants.GET_ALL_CAU_THU_NOT_FOUND_MESSAGE)
+            @ApiResponse(code = 200,message = MainConstants.GET_ALL_CAU_THU_SUCCESS_MESSAGE)
     })
     @GetMapping("/all")
     public ResponseEntity<ResponseWithPageDto<Page<CauThu>>> showAll(

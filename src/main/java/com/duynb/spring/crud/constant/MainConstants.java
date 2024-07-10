@@ -18,7 +18,6 @@ public class MainConstants {
     public static final String DELETE_CAU_THU_PROCEDURE = "xoa_cau_thu";
     public static final String GET_ALL_CAU_THU_API_OPERATION_VALUE = "Hiển thị danh sách cầu thủ theo page";
     public static final String GET_ALL_CAU_THU_SUCCESS_MESSAGE = "ok";
-    public static final String GET_ALL_CAU_THU_NOT_FOUND_MESSAGE = "Not Found";
     public static final String DELETE_CAU_THU_API_OPERATION_VALUE = "Xóa cầu thủ theo id cầu thủ";
     public static final String DELETE_CAU_THU_SUCCESS_MESSAGE = "ok";
     public static final String DELETE_CAU_THU_NOT_FOUND_MESSAGE = "cầu thủ không tồn tại";
