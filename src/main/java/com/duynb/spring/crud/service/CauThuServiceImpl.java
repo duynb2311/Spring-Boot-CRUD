@@ -58,7 +58,7 @@ public class CauThuServiceImpl implements CauThuService {
     @Override
     public ResponseWithObjectDto<CauThu> deleteCauThu(Long id){
         CauThu cauThu = cauThuRepository.findCauThuById(id);
-        if(Objects.isNull(cauThu) && Objects.isNull(cauThu.getId())) {
+        if(!Objects.isNull(cauThu) && !Objects.isNull(cauThu.getId())) {
             cauThuRepository.xoaCauThuProc(id);
             ResponseWithObjectDto<CauThu> response = new ResponseWithObjectDto<>(HttpStatus.OK.value(),MainConstants.DATA_MESSAGER,cauThu);
             return response;

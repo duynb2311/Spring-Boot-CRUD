@@ -28,6 +28,11 @@ public class CauThuController {
     // Tùng -- phương thức lấy toàn bộ danh sách cầu thủ
     // input: thứ tự page và độ dài page
     // output: trang danh sách cầu thủ yêu cầu
+    @ApiOperation(value = MainConstants.GET_ALL_CAU_THU_API_OPERATION_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200,message = MainConstants.GET_ALL_CAU_THU_SUCCESS_MESSAGE),
+            @ApiResponse(code = 404,message = MainConstants.GET_ALL_CAU_THU_NOT_FOUND_MESSAGE)
+    })
     @GetMapping("/all")
     public ResponseEntity<ResponseWithPageDto<Page<CauThu>>> showAll(
             @RequestParam(defaultValue = MainConstants.FIRST_PAGE) Integer page,
@@ -36,6 +41,11 @@ public class CauThuController {
         ResponseWithPageDto<Page<CauThu>> response =  cauThuService.getAllCauThu(page,size);
         return new ResponseEntity<>(response,HttpStatus.valueOf(response.getStatusCode()));
     }
+    @ApiOperation(value = MainConstants.DELETE_CAU_THU_API_OPERATION_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200,message = MainConstants.DELETE_CAU_THU_SUCCESS_MESSAGE),
+            @ApiResponse(code = 404,message = MainConstants.DELETE_CAU_THU_NOT_FOUND_MESSAGE)
+    })
     @DeleteMapping("/delete/{id}")
     // Tùng -- phương thức xóa cầu thủ với đầu vào id và đầu ra là kết quả xóa
     public ResponseEntity<ResponseWithObjectDto<CauThu>> deleteCauThu(@PathVariable Long id){
@@ -43,10 +53,9 @@ public class CauThuController {
         return new ResponseEntity<>(response,HttpStatus.valueOf(response.getStatusCode()));
      }
     // Tùng -- phương thức thêm cầu thủ với đầu vào là đối tượng CauThu
-    @ApiModelProperty(value = MainConstants.CREATE_CAU_THU_API_OPERATION_VALUE)
+    @ApiOperation(value = MainConstants.CREATE_CAU_THU_API_OPERATION_VALUE)
     @ApiResponses(value = {
             @ApiResponse(code = 200,message = MainConstants.CREATE_SUCCESS_MESSAGE),
-            @ApiResponse(code = 204,message = MainConstants.CREATE_NO_CONTENT_MESSAGE),
             @ApiResponse(code = 400,message = MainConstants.CREATE_BAD_REQUEST_MESSAGE)
     })
     @PostMapping("/add")
@@ -56,7 +65,7 @@ public class CauThuController {
     }
 
     //Duy -- phương thức lấy thông tin chi tiết cầu thủ với đầu vào là id cầu thủ
-    @ApiModelProperty(value = MainConstants.GET_CAU_THU_BY_ID_API_OPERATION_VALUE)
+    @ApiOperation(value = MainConstants.GET_CAU_THU_BY_ID_API_OPERATION_VALUE)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = MainConstants.GET_BY_ID_SUCCESS_MESSAGE),
             @ApiResponse(code = 404, message = MainConstants.GET_BY_ID_NOT_FOUND_MESSAGE)
@@ -74,8 +83,8 @@ public class CauThuController {
     // output -- page cầu thủ đc yêu cầu
     @GetMapping()
     public ResponseEntity<ResponseWithCollectionDto<List<CauThu>>> getCauThuByCauLacBo(
-            @RequestParam(value = "club", defaultValue = MainConstants.CLUB_NULL) String club,
-            @RequestParam(value = "page", defaultValue = MainConstants.FIRST_PAGE_GET_CAU_THU_By_CAU_LAC_BO) Integer page,
+            @RequestParam(value = "club", defaultValue = "") String club,
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = MainConstants.SIZE_PAGE) Integer size
     ){
         ResponseWithCollectionDto<List<CauThu>> response =cauThuService.getCauThuByCauLacBo(club, page, size);
