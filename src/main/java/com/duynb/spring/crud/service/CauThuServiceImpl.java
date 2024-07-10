@@ -73,7 +73,7 @@ public class CauThuServiceImpl implements CauThuService {
     public ResponseWithObjectDto<CauThu> getCauThuById(Long id){
         CauThu cauThu = cauThuRepository.findCauThuById(id);
         if(!Objects.isNull(cauThu)){
-            ResponseWithObjectDto<CauThu> response = new ResponseWithObjectDto<>(HttpStatus.OK.value(), MainConstants.GET_BY_ID_SUCCESS_MESSAGE,cauThu );
+            ResponseWithObjectDto<CauThu> response = new ResponseWithObjectDto<>(HttpStatus.OK.value(), MainConstants.SUCCESS_MESSAGE,cauThu );
             return response;
         }else{
             ResponseWithObjectDto<CauThu> response = new ResponseWithObjectDto<>(HttpStatus.NOT_FOUND.value(), MainConstants.GET_BY_ID_NOT_FOUND_MESSAGE,cauThu );
@@ -87,8 +87,11 @@ public class CauThuServiceImpl implements CauThuService {
     @Override
     public ResponseWithCollectionDto<List<CauThu>> getCauThuByCauLacBo(String club, Integer page, Integer size){
         List<CauThu> cauThus = cauThuRepository.findByClub(club, page, size);
-        ResponseWithCollectionDto<List<CauThu>> response = new ResponseWithCollectionDto<>(HttpStatus.OK.value(), MainConstants.GET_BY_ID_SUCCESS_MESSAGE, cauThus);
-        return response;
+        if(!cauThus.isEmpty()){
+            return new ResponseWithCollectionDto<>(HttpStatus.OK.value(), MainConstants.SUCCESS_MESSAGE, cauThus);
+        }else {
+            return new ResponseWithCollectionDto<>(HttpStatus.NOT_FOUND.value(), MainConstants.SUCCESS_MESSAGE, cauThus);
+        }
     }
 
     // Duy -- phương thức cập nhật thông tin cầu thủ với đầu vào là đối tượng CauThu với thông tin mới
@@ -100,7 +103,7 @@ public class CauThuServiceImpl implements CauThuService {
         CauThu currentCauThu = cauThuRepository.findCauThuById(cauThu.getId());
         if(!Objects.isNull(currentCauThu)){
             CauThu updatedCauthu = cauThuRepository.save(cauThu);
-            ResponseWithObjectDto<CauThu> response = new ResponseWithObjectDto<>(HttpStatus.OK.value(), MainConstants.GET_BY_ID_SUCCESS_MESSAGE,updatedCauthu );
+            ResponseWithObjectDto<CauThu> response = new ResponseWithObjectDto<>(HttpStatus.OK.value(), MainConstants.SUCCESS_MESSAGE,updatedCauthu );
             return response;
         }else{
             ResponseWithObjectDto<CauThu> response = new ResponseWithObjectDto<>(HttpStatus.NOT_FOUND.value(), MainConstants.GET_BY_ID_NOT_FOUND_MESSAGE,null );

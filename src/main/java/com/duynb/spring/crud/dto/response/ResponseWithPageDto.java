@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 public class ResponseWithPageDto<T extends Page<? extends ICauThuManagerDto>> {
     @ApiModelProperty(notes = MainConstants.STATUS_CODE_API_MODEL_NOTES, example =MainConstants.STATUS_CODE_API_MODEL_EXAMPLE )
     private int statusCode;
+    @ApiModelProperty(example = MainConstants.MESSAGE_EXAMPLE)
     private String message;
     private T data;
 

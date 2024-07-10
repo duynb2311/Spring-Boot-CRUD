@@ -24,6 +24,7 @@ public class Swagger2Config {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiEndPointsInfo())
+                .useDefaultResponseMessages(false)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(ConfigConstants.SWAGGER_BASE_PACKAGE))
                 .paths(PathSelectors.any())
