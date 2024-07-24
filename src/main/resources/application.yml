@@ -1,0 +1,12 @@
+---
+spring.profiles: en
+spring.profiles.include: en
+---
+spring.profiles: vi
+spring.profiles.include: vi
+---
+app:
+  exception:
+    cau-thu: Cau thu must not be Null
+  response:
+    get-by-id-success: Success

@@ -17,34 +17,21 @@ import java.util.List;
 
 @Configuration
 @EnableSwagger2
+// Cấu hình swagger để liệt kê danh sách các api
 public class Swagger2Config {
-    private ApiKey apiKey() {
-        return new ApiKey(ConfigConstants.AUTHORIZATION_TYPE, ConfigConstants.APIKEY_NAME, ConfigConstants.APIKEY_PASS_AS);
-    }
-
-    private SecurityContext securityContext() {
-        return SecurityContext.builder().securityReferences(defaultAuth()).build();
-    }
-
-    private List<SecurityReference> defaultAuth() {
-        AuthorizationScope authorizationScope = new AuthorizationScope(ConfigConstants.AUTHORIZATION_SCOPE, ConfigConstants.AUTHORIZATION_SCOPE_DESCRIPTION);
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[ConfigConstants.AUTHORIZATION_SCOPE_SIZE];
-        authorizationScopes[0] = authorizationScope;
-        return Arrays.asList(new SecurityReference(ConfigConstants.AUTHORIZATION_TYPE, authorizationScopes));
-    }
-
+    // Ánh xạ các api từ controller sang swagger ui
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiEndPointsInfo())
-                .securityContexts(Arrays.asList(securityContext()))
-                .securitySchemes(Arrays.asList(apiKey()))
+                .useDefaultResponseMessages(false)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(ConfigConstants.SWAGGER_BASE_PACKAGE))
                 .paths(PathSelectors.any())
                 .build();
     }
 
+    // Cấu hình các trường thông tin mô tả hiển thị trên trang swagger
     private ApiInfo apiEndPointsInfo() {
         return new ApiInfo(
                 ConfigConstants.APIINFO_TITLE,

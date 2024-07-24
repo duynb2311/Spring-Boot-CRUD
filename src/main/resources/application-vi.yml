@@ -1,0 +1,7 @@
+app:
+  exception:
+    cau-thu: Cau thu must not be Null
+  response:
+    success: Success
+    get-cau-thu-by-id-not-found: Cầu thủ không tồn tại
+    get-cau-thu-by-clb-not-found: Không tìm thấy cầu thủ nào phù hợp

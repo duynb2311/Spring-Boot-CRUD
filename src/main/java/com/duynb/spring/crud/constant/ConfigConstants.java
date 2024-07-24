@@ -23,4 +23,11 @@ public class ConfigConstants {
     public static final String HTTP_METHOD_DELETE = "DELETE";
     public static final Integer CORS_MAPPING_MAX_AGE = 3600;
 
+    public static final String INVALID_TOKEN_MESSAGE ="Invalid JWT token";
+    public static final String EXPIRED_TOKEN_MESSAGE ="Expired JWT token";
+    public static final String UNSUPPORTED_TOKEN_MESSAGE ="Unsupported JWT token";
+    public static final String EMPTY_TOKEN_MESSAGE ="JWT claims string is empty.";
+    public static final String INVALID_SIGNATURE_MESSAGE ="JWT signature not valid.";
+    public static final String USER_NOT_FOUND_MESSAGE ="User not found.";
+
 }
