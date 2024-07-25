@@ -85,7 +85,7 @@ public class CauThuController {
             @ApiResponse(code = 200, message = MainConstants.SUCCESS_MESSAGE),
             @ApiResponse(code = 404, message = MainConstants.API_GET_CAU_THU_BY_CLB_NOT_FOUND_MESSAGE)
     })
-    @GetMapping()
+    @GetMapping("/search")
     public ResponseEntity<ResponseWithCollectionDto<List<CauThu>>> getCauThuByCauLacBo(
             @ApiParam(value = MainConstants.GET_CAU_THU_BY_CLB_API_PARAM1_VALUE, example = MainConstants.GET_CAU_THU_BY_CLB_API_PARAM1_EXAMPLE) @RequestParam( defaultValue = MainConstants.CLUB_PARAM_DEFAULT) String club,
             @ApiParam(value = MainConstants.GET_CAU_THU_BY_CLB_API_PARAM2_VALUE, example = MainConstants.GET_CAU_THU_BY_CLB_API_PARAM2_EXAMPLE) @RequestParam( defaultValue = MainConstants.FIRST_PAGE) Integer page,

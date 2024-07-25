@@ -1,5 +1,6 @@
 package com.duynb.spring.crud.authentication;
 
+import com.duynb.spring.crud.constant.PermissionConstants;
 import com.duynb.spring.crud.entity.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class CustomUserDetails implements UserDetails {
@@ -20,7 +23,15 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
+        List<String> permissions = PermissionConstants.ROLE_PERMISSIONS.get(user.getRole());
+
+        if (permissions == null) {
+            throw new IllegalArgumentException("Role not found: " + user.getRole());
+        }
+
+        return permissions.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
     @Override

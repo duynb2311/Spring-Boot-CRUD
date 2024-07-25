@@ -1,6 +1,7 @@
 package com.duynb.spring.crud.config;
 
 import com.duynb.spring.crud.authentication.JwtAuthenticationFilter;
+import com.duynb.spring.crud.constant.PermissionConstants;
 import com.duynb.spring.crud.constant.SecurityConfigConstants;
 import com.duynb.spring.crud.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.util.Map;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -55,17 +58,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable();
 
-        // Sử dụng hằng số ENDPOINT_PERMISSIONS để cấu hình phân quyền
-        for (SecurityConfigConstants.EndpointPermission permission : SecurityConfigConstants.ENDPOINT_PERMISSIONS) {
-            if (permission.getRole() == null) {
-                http.authorizeRequests()
-                        .antMatchers(permission.getMethod(), permission.getEndpoint())
-                        .permitAll();
-            } else {
-                http.authorizeRequests()
-                        .antMatchers(permission.getMethod(), permission.getEndpoint())
-                        .hasRole(permission.getRole());
-            }
+        for (Map.Entry<String, PermissionConstants.Permission> entry : PermissionConstants.PERMISSION_MAP.entrySet()) {
+            String name = entry.getKey();
+            PermissionConstants.Permission permission = entry.getValue();
+            http.authorizeRequests()
+                    .antMatchers(permission.getHttpMethod(), permission.getEndPoint()).hasAuthority(name);
         }
 
         http
